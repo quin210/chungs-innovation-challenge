@@ -202,7 +202,7 @@ class LeaderboardManager {
             statusText = 'Tốt';
         } else if (maxScoreNum > 0) {
             statusClass = 'status-active';
-            statusText = 'Đang thi';
+            statusText = 'Đang chấm';
         } else {
             statusClass = 'status-pending';
             statusText = 'Chưa chấm';
