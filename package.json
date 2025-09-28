@@ -1,0 +1,40 @@
+{
+  "name": "chungs-innovation-challenge-leaderboard",
+  "version": "1.0.0",
+  "description": "Modern leaderboard web application for Chung's Innovation Challenge with real-time CSV data integration",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "build": "echo 'Static site - no build needed'",
+    "deploy": "echo 'Deploy to GitHub Pages via GitHub Actions'"
+  },
+  "keywords": [
+    "leaderboard",
+    "competition",
+    "challenge",
+    "csv",
+    "dashboard",
+    "responsive",
+    "github-pages"
+  ],
+  "author": "Chung's Innovation Challenge Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/YOUR_USERNAME/chungs-innovation-challenge"
+  },
+  "homepage": "https://YOUR_USERNAME.github.io/chungs-innovation-challenge",
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "devDependencies": {},
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ]
+}

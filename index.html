@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bảng Xếp Hạng - Chung's Innovation Challenge</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header class="header-section">
+            <div class="logo-container">
+                <img src="image/logo_competition.jpg" alt="Competition Logo" class="logo-competition">
+                <img src="image/logo_organizer.png" alt="Organizer Logo" class="logo-organizer">
+            </div>
+            <div class="title-container">
+                <h1 class="main-title">
+                    <i class="fas fa-trophy trophy-icon"></i>
+                    Chung's Innovation Challenge
+                </h1>
+                <h2 class="sub-title">Bảng Xếp Hạng</h2>
+                <div class="title-decoration"></div>
+                <div class="header-controls">
+                    <button class="refresh-btn" onclick="window.location.reload()" title="Làm mới dữ liệu">
+                        <i class="fas fa-sync-alt"></i> Làm mới
+                    </button>
+                    <div class="status-indicator" id="status-indicator">
+                        <i class="fas fa-circle" style="color: #43e97b;"></i>
+                        <span>Đang tải...</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+        
+        <main>
+            <div class="loading" id="loading">
+                <div class="loading-spinner">
+                    <i class="fas fa-spinner fa-spin"></i>
+                </div>
+                <p>Đang tải dữ liệu...</p>
+            </div>
+            
+            <div class="leaderboard-container" id="leaderboard" style="display: none;">
+                <div class="stats-container">
+                    <div class="stat-card">
+                        <i class="fas fa-users"></i>
+                        <div class="stat-info">
+                            <span class="stat-number" id="total-teams">0</span>
+                            <span class="stat-label">Đội tham gia</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-medal"></i>
+                        <div class="stat-info">
+                            <span class="stat-number" id="max-score">0</span>
+                            <span class="stat-label">Điểm cao nhất</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-chart-line"></i>
+                        <div class="stat-info">
+                            <span class="stat-number" id="avg-score">0</span>
+                            <span class="stat-label">Điểm trung bình</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="table-container">
+                    <table class="leaderboard-table">
+                        <thead>
+                            <tr>
+                                <th><i class="fas fa-hashtag"></i> Thứ Hạng</th>
+                                <th><i class="fas fa-users"></i> Tên Nhóm</th>
+                                <th><i class="fas fa-paper-plane"></i> Sub 1</th>
+                                <th><i class="fas fa-paper-plane"></i> Sub 2</th>
+                                <th><i class="fas fa-paper-plane"></i> Sub 3</th>
+                                <th><i class="fas fa-trophy"></i> Điểm Cao Nhất</th>
+                                <th><i class="fas fa-chart-bar"></i> Trạng Thái</th>
+                            </tr>
+                        </thead>
+                        <tbody id="leaderboard-body">
+                            <!-- Dữ liệu sẽ được thêm bằng JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+        
+        <footer class="footer">
+            <div class="footer-content">
+                <p>&copy; 2025 Chung's Innovation Challenge. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+        </footer>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>

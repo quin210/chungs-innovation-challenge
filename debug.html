@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .debug { background: #f0f0f0; padding: 10px; margin: 10px 0; border-radius: 5px; }
+        .error { background: #ffebee; color: #c62828; }
+        .success { background: #e8f5e8; color: #2e7d32; }
+    </style>
+</head>
+<body>
+    <h1>🔍 Debug Test Page</h1>
+    <div id="debug-info"></div>
+    
+    <script>
+        const debugDiv = document.getElementById('debug-info');
+        
+        function addDebug(message, type = 'debug') {
+            const div = document.createElement('div');
+            div.className = `debug ${type}`;
+            div.innerHTML = `<strong>${new Date().toLocaleTimeString()}</strong>: ${message}`;
+            debugDiv.appendChild(div);
+        }
+        
+        addDebug('📄 Trang debug đã load thành công', 'success');
+        
+        // Test fetch CSV
+        fetch('/data/Leaderboard.csv')
+            .then(response => {
+                addDebug(`📡 CSV Response status: ${response.status}`, response.ok ? 'success' : 'error');
+                return response.text();
+            })
+            .then(data => {
+                addDebug(`📄 CSV data length: ${data.length} characters`, 'success');
+                addDebug(`📄 First 100 chars: ${data.substring(0, 100)}...`, 'debug');
+            })
+            .catch(error => {
+                addDebug(`❌ Error loading CSV: ${error}`, 'error');
+            });
+            
+        // Test basic elements
+        setTimeout(() => {
+            addDebug('🔍 Testing main page elements...', 'debug');
+            
+            fetch('/')
+                .then(response => response.text())
+                .then(html => {
+                    const hasLoading = html.includes('id="loading"');
+                    const hasLeaderboard = html.includes('id="leaderboard"');
+                    const hasScript = html.includes('script.js');
+                    
+                    addDebug(`📄 HTML has loading element: ${hasLoading}`, hasLoading ? 'success' : 'error');
+                    addDebug(`📄 HTML has leaderboard element: ${hasLeaderboard}`, hasLeaderboard ? 'success' : 'error');
+                    addDebug(`📄 HTML includes script.js: ${hasScript}`, hasScript ? 'success' : 'error');
+                })
+                .catch(error => {
+                    addDebug(`❌ Error checking main page: ${error}`, 'error');
+                });
+        }, 1000);
+    </script>
+</body>
+</html>
