@@ -1,31 +1,31 @@
 Team ,#sub1,#sub2,#sub3,Final
-27,83.8,,,
+27,83.8,NULL,NULL,83.8
 404 Gala Dinner,70.6,43.4,84.4,84.4
-ACVcoders,83.6,,,
+ACVcoders,83.6,NULL,NULL,83.6
 AITrio,81.4,81.4,NULL,81.4
-Ba Chang Linh Ngu Lam,sai dịnh dạng,,,
+Ba Chang Linh Ngu Lam,sai dịnh dạng,NULL,NULL,SAI
 Binari,81.1,81.9,NULL,81.9
 camgbi,83.5,NULL,NULL,83.5
 ChatGPT6,74.0,75.0,NULL,75.0
 Clover,78.5,NULL,NULL,78.5
 dalg-gwa gae dul da,86.8,NULL,NULL,86.8
 Excalibur,94.9,94.9,97.2,97.2
-Kanami,71.7,,,
-mingith,82.2,,,
-Minimal,68.9,,,
-Myth,57.8,,,
-NaN,74.6,,,
-NoCap,77.6,,,
-Nothing,63.4,,,
-NULL,85.1,,,
-Oguri Cap,56.9,,,
-Pichi,68.1,,,
-S4nt0ryu,68.4,,,
-Sejong OCR,75.3,,,
-SS8,64.8,,,
-The Copy Pasters,74.5,,,
-This_is_a_name,43.,,,
-ThreeTree,81.4,,,
-TitanData,78.6,,,
-TP BANK,72.7,,,
-Xtreme,75.2,,,
+Kanami,71.7,71.7,NULL,71.7
+mingith,82.2,NULL,NULL,82.2
+Minimal,68.9,68.9,NULL,68.9
+Myth,57.8,NULL,NULL,57.8
+NaN,74.6,74.6,74.6,74.6
+NoCap,77.6,77.6,NULL,77.6
+Nothing,63.4,NULL,NULL,63.4
+NULL,85.1,81.9,NULL,85.1
+Oguri Cap,56.9,NULL,NULL,56.9
+Pichi,68.1,68.1,NULL,68.1
+S4nt0ryu,68.4,NULL,NULL,68.4
+Sejong OCR,75.3,76.0,75.3,76.0
+SS8,64.8,56.5,NULL,64.8
+The Copy Pasters,74.5,74.5,NULL,74.5
+This_is_a_name,43,82.1,70.6,82.1
+ThreeTree,81.4,81.4,NULL,81.4
+TitanData,78.6,NULL,NULL,78.6
+TP BANK,72.7,72.7,72.7,72.7
+Xtreme,75.2,82.6,75.2,82.6
