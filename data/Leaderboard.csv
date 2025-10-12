@@ -1,31 +1,31 @@
-Team ,#sub1,#sub2,#sub3,Final
-27,83.8,NULL,NULL,83.8
-404 Gala Dinner,70.6,43.4,84.4,84.4
-ACVcoders,83.6,NULL,NULL,83.6
-AITrio,81.4,81.4,NULL,81.4
-Ba Chang Linh Ngu Lam,82,NULL,NULL,82
-Binari,81.1,81.9,NULL,81.9
-camgbi,83.5,NULL,NULL,83.5
-ChatGPT6,74.0,75.0,NULL,75.0
-Clover,78.5,NULL,NULL,78.5
-dalg-gwa gae dul da,86.8,NULL,NULL,86.8
-Excalibur,94.9,94.9,97.2,97.2
-Kanami,71.7,71.7,NULL,71.7
-mingith,82.2,NULL,NULL,82.2
-Minimal,68.9,68.9,NULL,68.9
-Myth,57.8,NULL,NULL,57.8
-NaN,74.6,74.6,74.6,74.6
-NoCap,77.6,77.6,NULL,77.6
-Nothing,63.4,NULL,NULL,63.4
-NULL,85.1,81.9,NULL,85.1
-Oguri Cap,56.9,NULL,NULL,56.9
-Pichi,68.1,68.1,NULL,68.1
-S4nt0ryu,68.4,NULL,NULL,68.4
-Sejong OCR,75.3,76.0,75.3,76.0
-SS8,64.8,56.5,NULL,64.8
-The Copy Pasters,74.5,74.5,NULL,74.5
-This_is_a_name,43,82.1,70.6,82.1
-ThreeTree,81.4,81.4,NULL,81.4
-TitanData,78.6,NULL,NULL,78.6
-TP BANK,72.7,72.7,72.7,72.7
-Xtreme,75.2,82.6,75.2,82.6
+Team ,#sub1,#sub2,#sub3,Phase 2,Phase 1,Final 
+Excalibur,"85,9","85,1","85,1","85,9",97.2,"87,03"
+NaN,83.6,0,0,"83,6",74.6,"82,7"
+Sejong OCR,"77,5",0,0,"77,5",76.0,"77,35"
+dalg-gwa gae dul da,72.2,"71,7","75,6","75,6",86.8,"76,72"
+ThreeTree,"76,1","76,1",0,"76,1",81.4,"76,63"
+camgbi,"75,6",0,0,"75,6",83.5,"76,39"
+Pichi,76.2,0,0,"76,2",68.1,"75,39"
+Xtreme,73.9,73.7,73.9,"73,9",82.6,"74,77"
+NULL,72.5,72.8,72.7,"72,8",85.1,"74,03"
+TitanData,"72,7",0,0,"72,7",78.6,"73,29"
+ACVcoders,"71,6","71,6","71,9","71,9",83.6,"73,07"
+mingith,71.7,0,0,"71,7",82.2,"72,75"
+AITrio,"71,5","71,6",0,"71,6",81.4,"72,58"
+This_is_a_name,"71,4",0,0,"71,4",82.1,"72,47"
+Nothing,"70,8",0,0,"70,8",63.4,"70,06"
+404 Gala Dinner,"68,1","56,3",0,"68,1",84.4,"69,73"
+ChatGPT6,"67,1",0,0,"67,1",75.0,"67,89"
+TP BANK,"62,2",0,0,"62,2",72.7,"63,25"
+Oguri Cap,"51,2",0,0,"51,2",56.9,"51,77"
+27,0,0,0,0,83.8,"8,38"
+Ba Chang Linh Ngu Lam,0,0,0,0,82,"8,2"
+Binari,0,0,0,0,81.9,"8,19"
+Clover,0,0,0,0,78.5,"7,85"
+NoCap,0,0,0,0,77.6,"7,76"
+The Copy Pasters,0,0,0,0,74.5,"7,45"
+Kanami,0,0,0,0,71.7,"7,17"
+Minimal,0,0,0,0,68.9,"6,89"
+S4nt0ryu,0,0,0,0,68.4,"6,84"
+SS8,0,0,0,0,64.8,"6,48"
+Myth,0,0,0,0,57.8,"5,78"

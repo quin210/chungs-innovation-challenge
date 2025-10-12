@@ -41,8 +41,10 @@ class LeaderboardManager {
     async loadCSVData() {
         try {
             console.log('🔄 Đang tải file CSV...');
-            // Try different path formats for GitHub Pages
+            // Try specific Phase 2 CSV (file provided), then fallback to default names
             const paths = [
+                'data/Leaderboard - Phase 2.csv',
+                'data/Leaderboard - RAW Phase 2.csv',
                 'data/Leaderboard.csv',
                 './data/Leaderboard.csv',
                 '/data/Leaderboard.csv'
@@ -83,39 +85,92 @@ class LeaderboardManager {
     }
 
     parseCSV(csvText) {
-        const lines = csvText.trim().split('\n');
-        const headers = lines[0].split(',').map(header => header.trim());
-        
+        // Robust CSV parsing: handle quoted fields and comma decimals
+        const lines = csvText.trim().split(/\r?\n/).filter(l => l.trim());
+        if (lines.length === 0) return;
+
+        // Parse header by splitting on commas (trimmed)
+        const headers = lines[0].split(',').map(h => h.trim());
+
         this.data = [];
-        for (let i = 1; i < lines.length; i++) {
-            const values = lines[i].split(',');
-            if (values.length >= headers.length && values[0].trim()) {
-                const row = {};
-                headers.forEach((header, index) => {
-                    row[header] = values[index] ? values[index].trim() : '';
-                });
-                
-                // Tính điểm cao nhất từ các submission
-                const sub1 = parseFloat(row['#sub1']) || 0;
-                const sub2 = parseFloat(row['#sub2']) || 0;
-                const sub3 = parseFloat(row['#sub3']) || 0;
-                const maxScore = Math.max(sub1, sub2, sub3);
-                
-                row['Max Score'] = maxScore > 0 ? maxScore.toFixed(1) : '0';
-                
-                // Chỉ thêm team có tên
-                if (row['Team']) {
-                    this.data.push(row);
+
+        // Helper: parse a CSV line into fields, handling quoted values
+        const parseLine = (line) => {
+            const fields = [];
+            let cur = '';
+            let inQuotes = false;
+            for (let i = 0; i < line.length; i++) {
+                const ch = line[i];
+                if (ch === '"') {
+                    inQuotes = !inQuotes;
+                    continue;
                 }
+                if (ch === ',' && !inQuotes) {
+                    fields.push(cur);
+                    cur = '';
+                    continue;
+                }
+                cur += ch;
             }
+            fields.push(cur);
+            return fields.map(f => f.trim());
+        };
+
+        // Normalize decimal comma to dot and parse number safely
+        const toNumber = (s) => {
+            if (!s && s !== 0) return 0;
+            // Replace comma used as decimal separator (e.g., "85,9")
+            const normalized = String(s).replace(/\s+/g, '').replace(',', '.');
+            const n = parseFloat(normalized);
+            return isNaN(n) ? 0 : n;
+        };
+
+        for (let i = 1; i < lines.length; i++) {
+            const values = parseLine(lines[i]);
+            if (!values[0]) continue; // skip empty team name
+
+            const row = {};
+            headers.forEach((h, idx) => {
+                row[h] = values[idx] !== undefined ? values[idx] : '';
+            });
+
+            // Submission scores
+            const sub1 = toNumber(row['#sub1'] || row['#sub1'] === 0 ? row['#sub1'] : '0');
+            const sub2 = toNumber(row['#sub2'] || row['#sub2'] === 0 ? row['#sub2'] : '0');
+            const sub3 = toNumber(row['#sub3'] || row['#sub3'] === 0 ? row['#sub3'] : '0');
+            const maxScore = Math.max(sub1, sub2, sub3);
+            row['Max Score'] = maxScore > 0 ? maxScore.toFixed(1) : '0';
+
+            // Phase 1, Phase 2 and Final (some CSV use different header names with spaces)
+            const phase1Raw = row['Phase 1'] !== undefined ? row['Phase 1'] : (row['Phase1'] || '');
+            const phase2Raw = row['Phase 2'] !== undefined ? row['Phase 2'] : (row['Phase2'] || '');
+            const finalRaw = row['Final'] !== undefined ? row['Final'] : (row['Final '] || '');
+            const phase1 = toNumber(phase1Raw);
+            const phase2 = toNumber(phase2Raw);
+            const final = toNumber(finalRaw);
+            row['Phase1'] = phase1 > 0 ? phase1.toFixed(1) : '';
+            row['Phase2'] = phase2 > 0 ? phase2.toFixed(1) : '';
+            row['Final'] = final > 0 ? final.toFixed(1) : '';
+
+            // Compute rank score: prefer Final -> Phase2 -> Phase1
+            // If Final exists (>0) use it; else if Phase2 exists use it; else Phase1
+            let rankScore = 0;
+            if (final > 0) rankScore = final;
+            else if (phase2 > 0) rankScore = phase2;
+            else if (phase1 > 0) rankScore = phase1;
+            else rankScore = maxScore;
+            // Keep one decimal
+            row['RankScore'] = Math.round(rankScore * 10) / 10;
+
+            // Push normalized row (use 'Team' header if present else 'Team ' variation)
+            const teamName = row['Team'] || row['Team '] || row['Team  '] || values[0];
+            row['Team'] = teamName;
+
+            this.data.push(row);
         }
-        
-        // Sắp xếp theo điểm cao nhất
-        this.data.sort((a, b) => {
-            const aScore = parseFloat(a['Max Score']) || 0;
-            const bScore = parseFloat(b['Max Score']) || 0;
-            return bScore - aScore;
-        });
+
+        // Sort by RankScore descending
+        this.data.sort((a, b) => (parseFloat(b['RankScore']) || 0) - (parseFloat(a['RankScore']) || 0));
     }
 
     createSampleData() {
@@ -161,6 +216,10 @@ class LeaderboardManager {
         if (rankClass) {
             row.classList.add(rankClass);
         }
+        // Highlight top 5 teams for finals
+        if (rank <= 5) {
+            row.classList.add('top-5-finalist');
+        }
 
         // Rank column
         const rankCell = document.createElement('td');
@@ -183,29 +242,36 @@ class LeaderboardManager {
             row.appendChild(cell);
         });
 
-        // Max Score column
-        const maxScoreCell = document.createElement('td');
-        const maxScore = team['Max Score'] || '0';
-        const displayMaxScore = parseFloat(maxScore) > 0 ? parseFloat(maxScore).toFixed(1) : '-';
-        maxScoreCell.innerHTML = `<span class="score" style="background: linear-gradient(45deg, #ffd700, #ffed4e);">${displayMaxScore}</span>`;
-        row.appendChild(maxScoreCell);
+        // Phase 1 column
+        const phase1Cell = document.createElement('td');
+        const phase1 = team['Phase1'] || team['Phase 1'] || '';
+        const displayPhase1 = phase1 ? parseFloat(phase1).toFixed(1) : '-';
+        phase1Cell.innerHTML = `<span class="score" style="background: linear-gradient(45deg, #ffd700, #ffed4e);">${displayPhase1}</span>`;
+        row.appendChild(phase1Cell);
 
-        // Status column
+        // Phase 2 column
+        const phase2Cell = document.createElement('td');
+        const phase2 = team['Phase2'] || team['Phase 2'] || '';
+        const displayPhase2 = phase2 ? parseFloat(phase2).toFixed(1) : '-';
+        phase2Cell.innerHTML = `<span class="score" style="background: linear-gradient(45deg, #ff6b6b, #ee5a6f);">${displayPhase2}</span>`;
+        row.appendChild(phase2Cell);
+
+        // Final column
+        const finalCell = document.createElement('td');
+        const finalVal = team['Final'] || team['Final '] || '';
+        const displayFinal = finalVal ? parseFloat(finalVal).toFixed(1) : '-';
+        finalCell.innerHTML = `<span class="score" style="background: linear-gradient(45deg, #764ba2, #667eea);">${displayFinal}</span>`;
+        row.appendChild(finalCell);
+
+        // Status column - Top 5 = Chung Kết, Others = Xuất Sắc
         const statusCell = document.createElement('td');
-        const maxScoreNum = parseFloat(team['Max Score'] || '0');
         let statusClass, statusText;
-        if (maxScoreNum >= 80) {
-            statusClass = 'status-completed';
-            statusText = 'Xuất sắc';
-        } else if (maxScoreNum >= 70) {
-            statusClass = 'status-active';
-            statusText = 'Tốt';
-        } else if (maxScoreNum > 0) {
-            statusClass = 'status-active';
-            statusText = 'Đang chấm';
+        if (rank <= 5) {
+            statusClass = 'status-finalist';
+            statusText = 'Chung Kết';
         } else {
-            statusClass = 'status-pending';
-            statusText = 'Chưa chấm';
+            statusClass = 'status-excellent';
+            statusText = 'Xuất Sắc';
         }
         statusCell.innerHTML = `<span class="status-badge ${statusClass}">${statusText}</span>`;
         row.appendChild(statusCell);
